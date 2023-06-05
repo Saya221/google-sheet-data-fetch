@@ -5,5 +5,5 @@ class Faq < ApplicationRecord
   has_many :buttons, through: :faqs_resourceables
   has_many :answers, through: :faqs_resourceables
 
-  enum type: %i[other trader giga invest]
+  enum faq_type: %i[other trader giga invest]
 end

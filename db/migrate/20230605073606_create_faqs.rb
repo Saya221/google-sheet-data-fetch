@@ -1,7 +1,7 @@
 class CreateFaqs < ActiveRecord::Migration[7.0]
   def change
     create_table :faqs do |t|
-      t.integer :type, default: Faq.types[:other]
+      t.integer :faq_type, default: Faq.faq_types[:other]
       t.string :intent
       t.text :questions
 

@@ -25,3 +25,4 @@ Style/ClassAndModuleChildren:
 Metrics/BlockLength:
   Exclude:
     - "app/controllers/concerns/api/v1/rescue_exceptions.rb"
+    - "lib/tasks/**/*"
