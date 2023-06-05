@@ -23,6 +23,8 @@ gem "redis", "~> 5.0", ">= 5.0.6"
 gem "sidekiq", "~> 7.0", ">= 7.0.9"
 
 group :development, :test do
+  gem "factory_bot_rails"
+  gem "faker"
   gem "pry-rails"
 end
 
