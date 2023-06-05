@@ -2,5 +2,6 @@
 !/log/.keep
 
 tmp
+keys
 
 config/application.yml
