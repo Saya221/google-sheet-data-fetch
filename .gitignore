@@ -1,7 +1,10 @@
 /log/*
+/storage/*
+
 !/log/.keep
+!/storage/.keep
 
 tmp
-keys
+key
 
 config/application.yml
