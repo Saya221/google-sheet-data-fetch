@@ -11,8 +11,10 @@ namespace :import_csv do
       CSV.foreach(ENV["ANSWERS_PATH"], headers: true).each_with_index do |row, i|
         break unless row["Answer Number"]
 
-        Answer.create! answer_number: row["Answer Number"].squeeze,
-                       answers: ERB::Util.h(row["Answer"])&.squeeze
+        Answer.create!(
+          answer_number: row["Answer Number"].squish,
+          answers: row["Answer"]&.squish&.gsub(/\s+(-|\+)/, " - ")&.squish&.gsub(/\s+-/, "\n-")
+        )
 
         @index = i
         print "\033[32m.\033[0m"
@@ -30,9 +32,9 @@ namespace :import_csv do
       CSV.foreach(ENV["BUTTONS_PATH"], headers: true).each_with_index do |row, i|
         break unless row["Button Number"]
 
-        Button.create! button_number: row["Button Number"].squeeze,
-                       button_name: row["Button Name"]&.squeeze,
-                       button_action: row["Button Action"]&.squeeze
+        Button.create! button_number: row["Button Number"].squish,
+                       button_name: row["Button Name"]&.strip&.squeeze,
+                       button_action: row["Button Action"]&.strip&.squeeze
 
         @index = i
         print "\033[32m.\033[0m"
@@ -51,8 +53,10 @@ namespace :import_csv do
         CSV.foreach(ENV["FAQ_#{faq_type.upcase}_PATH"], headers: true).each_with_index do |row, i|
           break unless row["Intent"]
 
-          faq = Faq.send(faq_type).create! intent: row["Intent"].squeeze, questions: row["Questions"]&.squeeze
-
+          faq = Faq.send(faq_type).create!(
+            intent: row["Intent"].squish,
+            questions: row["Questions"]&.squish&.gsub(/(-|\+)/, " - ")&.squish&.gsub(/\s+-/, "\n-")
+          )
           # Get all number after underscore _
           regex = /(?<=_)\d+/
           # Link answers
